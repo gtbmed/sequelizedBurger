@@ -1,29 +1,28 @@
 // Dependencies
 const express = require('express');
+const burger = require('../models/burger.js')["Burger"]; // Route to sequelized Burger
 // Create a routher using express
 var router = express.Router();
 
-const burger = require('../models/burger.js');
-
+// Route for getting all burger info stored in db
 router.get("/", function(req, res) {
-  burger.all(function(data) {
-    var hbsObject = {
-      burgers : data
-    };
-    console.log(hbsObject);
-    res.render("index", hbsObject);
+  Burger.findAll({}).then(function(data) {
+    console.log(data);
+    res.render("index", data);
   });
 });
 
 // Route for posting new burger / Creating a new burger
-router.post("/burger/insert", function(req, res) {
-  burger.insert(["name", "devoured"], [req.body.name, req.body.devoured],
-  function() {
+router.post("/burger/create", function(req, res) {
+  Burger.create({
+    burger_name: req.body.burger_name
+  }).then(function(addBurger) {
+    console.log(addBurger);
     res.redirect("/");
   });
 });
 
-// Route for update a burger status to "devoured"
+***// Route for update a burger status to "devoured"
 router.put('/burger/update/:id', function (req, res) {
   var condition = "id = " + req.params.id;
   burger.update({"devoured" : req.body.devoured}, condition, function(data) {
