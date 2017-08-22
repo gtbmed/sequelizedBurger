@@ -10,7 +10,7 @@ const db = require('../models/');// Route to sequelized Burger
 router.get("/", function(req, res) {
   db.Burger.findAll({}).then(function(data) {
     console.log(data);
-    res.render("index", data);
+    res.render("index", {burgers: data});
   });
 });
 
@@ -26,11 +26,12 @@ router.post("/burger/create", function(req, res) {
 
 // Route for update a burger status to "devoured"
 router.put('/burger/update/:id', function (req, res) {
-  db.burger.update({
-    devoured: req.body.devoured,
-  where: {
-    id: req.params.id
-  }
+  db.Burger.update({
+    devoured: true,
+  }, {
+    where: {
+      id: req.params.id
+    }
   }).then(function() {
     res.redirect("/");
     });
