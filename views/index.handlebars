@@ -4,10 +4,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
+      <h2>BURGERS TO EAT</h2>
       {{#each burgers}}
         {{#unless this.devoured}}
           <li>
-            {{this.name}}
+            {{this.burger_name}}
 
             <form action="/burger/update/{{this.id}}?_method=PUT" method="POST">
               <input type="hidden" name="devoured" value="false">
@@ -21,14 +22,14 @@
 
 <!-- Show devoured burgers -->
     <div class="col-md-6">
+      <h2>BURGERS DEVOURED</h2>
       {{#each burgers}}
         {{#if this.devoured}}
           <li>
-            {{this.name}}
+            {{this.burger_name}}
 
             <form action="/burger/update/{{this.id}}?_method=PUT" method="POST">
               <input type="hidden" name="devoured" value="true">
-              <button type="submit">REINCARNATE YOUR BURGER!</button>
             </form>
 
           </li>
@@ -37,14 +38,17 @@
     </div>
   </div>
 </div>
-
+<br>
+<br>
 <!-- Add new burgers -->
 <div class="container">
-  <form action="/burger/create" method="POST">
-    <div class="form-group">
-      <label for="food">Add your Burger</label>
-      <textarea name="name" rows="5" cols="80" id="food"></textarea>
-    </div>
-    <button type="submit">ADD YOUR DESIRES</button>
-  </form>
+  <div class="row">
+    <form action="/burger/create" method="POST">
+      <div class="form-group">
+        <label for="food">Add your Burger</label>
+        <textarea name="burger_name" rows="5" cols="80" id="food"></textarea>
+      </div>
+      <button type="submit">ADD YOUR DESIRES</button>
+    </form>
+  </div>
 </div>
