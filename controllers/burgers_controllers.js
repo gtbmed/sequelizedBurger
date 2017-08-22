@@ -1,8 +1,10 @@
 // Dependencies
 const express = require('express');
-const db = require('../models/'); // Route to sequelized Burger
+
 // Create a routher using express
 var router = express.Router();
+
+const db = require('../models/');// Route to sequelized Burger
 
 // Route for getting all burger info stored in db
 router.get("/", function(req, res) {
@@ -25,13 +27,13 @@ router.post("/burger/create", function(req, res) {
 // Route for update a burger status to "devoured"
 router.put('/burger/update/:id', function (req, res) {
   db.burger.update({
-    devoured: req.body.devoured
-  }, {
+    devoured: req.body.devoured,
   where: {
     id: req.params.id
+  }
   }).then(function() {
     res.redirect("/");
-  });
+    });
 });
 
 module.exports = router;

@@ -2,39 +2,45 @@
 
 <!-- Get the parts to work first, then make it pretty -->
 <div class="container">
-  {{#each burgers}}
-    {{#unless this.devoured}}
-      <li>
-        {{this.name}}
+  <div class="row">
+    <div class="col-md-6">
+      {{#each burgers}}
+        {{#unless this.devoured}}
+          <li>
+            {{this.name}}
 
-        <form action="/burger/update/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="devoured" value="false">
-          <button type="submit" class="btn">DEVOUR SAID FOOD BURGER</button>
-        </form>
+            <form action="/burger/update/{{this.id}}?_method=PUT" method="POST">
+              <input type="hidden" name="devoured" value="false">
+              <button type="submit" class="btn">DEVOUR SAID FOOD BURGER</button>
+            </form>
 
-      </li>
-    {{/unless}}
-  {{/each}}
-</div>
+          </li>
+        {{/unless}}
+      {{/each}}
+    </div>
 
 <!-- Show devoured burgers -->
-  {{#each burgers}}
-    {{#if this.devoured}}
-      <li>
-        {{this.name}}
+    <div class="col-md-6">
+      {{#each burgers}}
+        {{#if this.devoured}}
+          <li>
+            {{this.name}}
 
-        <form action="/burger/update/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="devoured" value="true">
-          <button type="submit">REINCARNATE YOUR BURGER!</button>
-        </form>
+            <form action="/burger/update/{{this.id}}?_method=PUT" method="POST">
+              <input type="hidden" name="devoured" value="true">
+              <button type="submit">REINCARNATE YOUR BURGER!</button>
+            </form>
 
-      </li>
-    {{/if}}
-  {{/each}}
+          </li>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</div>
 
 <!-- Add new burgers -->
 <div class="container">
-  <form action="/burger/insert" method="POST">
+  <form action="/burger/create" method="POST">
     <div class="form-group">
       <label for="food">Add your Burger</label>
       <textarea name="name" rows="5" cols="80" id="food"></textarea>
